@@ -1,0 +1,84 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/*_.java": true,
+    "dist": true,
+    "node_modules": true,
+    "target": true,
+    "**/target": true,
+    "coverage": true,
+    "**/node_modules": true,
+    "**/.pnpm-store": true,
+    ".pnpm-store": true,
+    "**/dist": true
+  },
+  "explorerExclude.backup": {},
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnType": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.rulers": [100, 120, 140],
+  "editor.tabSize": 2,
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.options": {
+    "extensions": [".js", ".ts", ".cjs", ".es"]
+  },
+  "eslint.probe": ["javascript", "typescript"],
+  "eslint.validate": ["javascript", "typescript"],
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "javascript.format.enable": false,
+  "javascript.suggest.completeFunctionCalls": true,
+  "npm.packageManager": "pnpm",
+  "typescript.format.enable": false,
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "prettier.documentSelectors": ["*.ts", "*.js", "*.html", "*.sh", "*.json", "*.jsonc", "*.yaml", "*.yml"],
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "resourceful-tako",
+  "displayName": "Resourceful Tako",
+  "description": "Make deploying and managing docker-compose stacks, define dependencies and project secrets easy again!",
+  "homepage": "https://joaovictor.com/en/projects/resourceful-tako-deployer",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "email": "resourcefultako@joaovictor.com",
+    "name": "João Victor",
+    "url": "https://joaovictor.com"
+  },
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/joaovictorlouro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoaoVictorLouro/resourceful-tako.git"
+  },
+  "bugs": {
+    "email": "resourcefultako@joaovictor.com",
+    "url": "https://github.com/JoaoVictorLouro/resourceful-tako/issues"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "scripts": {
+    "dev": "next dev --port 7060",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "docker-compose": "0.24.8",
+    "next": "14.2.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.14",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.3",
+    "postcss": "8.4.38",
+    "prettier": "3.2.5",
+    "tailwindcss": "3.4.3",
+    "typescript": "5.4.5"
+  }
+}

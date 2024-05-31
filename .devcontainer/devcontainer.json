@@ -1,0 +1,48 @@
+{
+  "name": "resourceful-tako-devenv",
+  "dockerComposeFile": ["./dev-env/docker-compose.yml"],
+  "service": "resourceful_tako_devenv",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "zsh .devcontainer/dev-env/setup-dev-env.sh",
+  "postStartCommand": "zsh .devcontainer/dev-env/on-dev-env-start.sh",
+  "shutdownAction": "stopCompose",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultProfile.osx": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
+        "terminal.integrated.profiles.osx": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        }
+      },
+      "extensions": [
+        "adam-bender.commit-message-editor",
+        "christian-kohler.path-intellisense",
+        "dbaeumer.vscode-eslint",
+        "donjayamanne.githistory",
+        "dotjoshjohnson.xml",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "fr43nk.seito-openfile",
+        "metaseed.metago",
+        "metaseed.metajump",
+        "metaseed.metaword",
+        "mgmcdermott.vscode-language-babel",
+        "ms-azuretools.vscode-docker",
+        "npxms.hide-gitignored",
+        "PeterSchmalfeldt.explorer-exclude",
+        "wallabyjs.quokka-vscode"
+      ]
+    }
+  }
+}

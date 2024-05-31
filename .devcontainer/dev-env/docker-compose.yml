@@ -1,0 +1,34 @@
+version: '3.8'
+
+networks:
+  resourceful_tako_net:
+    name: resourceful_tako_net
+
+services:
+  resourceful_tako_devenv:
+    build:
+      dockerfile: ./.devcontainer/dev-env/Dockerfile
+      context: ../..
+    container_name: resourceful_tako_devenv
+    user: node
+    hostname: resourceful_tako_devenv
+    environment:
+      ENVIRONMENT: 'development'
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - 7060:7060
+    volumes:
+      - '../../:/workspace:delegated'
+      - './.zshrc:/home/node/.zshrc:cached'
+      - './.warprc:/home/node/.warprc:cached'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '~/docker/resourceful-tako/logs:/logs'
+      - '~/docker/resourceful-tako/artifacts:/artifacts'
+      - '~/docker/resourceful-tako/results:/results'
+    networks:
+      default:
+        aliases:
+          - resourceful_tako_devenv
+      resourceful_tako_net: {}
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
