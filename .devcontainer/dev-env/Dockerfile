@@ -35,6 +35,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && mkdir -p /pnpm-store \
   && chmod -R 777 /pnpm-store \
   && chmod -R g+s /pnpm-store \
+  && mkdir -p /config \
+  && chmod -R 777 /config \
+  && chmod -R g+s /config \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
