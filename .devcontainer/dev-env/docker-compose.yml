@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 networks:
   resourceful_tako_net:
@@ -13,22 +13,22 @@ services:
     user: node
     hostname: resourceful_tako_devenv
     environment:
-      ENVIRONMENT: "development"
-      DATABASE_URL: "file:/config/dev.db"
+      ENVIRONMENT: 'development'
+      DATABASE_URL: 'file:/config/dev.db'
     command: /bin/sh -c "while sleep 1000; do :; done"
     ports:
       - 7060:7060
     volumes:
-      - "../../:/workspace:delegated"
-      - "./.zshrc:/home/node/.zshrc:cached"
-      - "./.warprc:/home/node/.warprc:cached"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "~/docker/resourceful-tako/logs:/logs"
-      - "~/docker/resourceful-tako/config:/config"
+      - '../../:/workspace:delegated'
+      - './.zshrc:/home/node/.zshrc:cached'
+      - './.warprc:/home/node/.warprc:cached'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '~/docker/resourceful-tako/logs:/logs'
+      - '~/docker/resourceful-tako/config:/config'
     networks:
       default:
         aliases:
           - resourceful_tako_devenv
       resourceful_tako_net: {}
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
