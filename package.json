@@ -28,7 +28,11 @@
     "dev": "next dev --port 7060",
     "build": "next build",
     "start": "next start --port 7060",
-    "lint": "next lint",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint:check": "next lint",
+    "lint:fix": "next lint --fix",
+    "test:check": "echo 'tests will be added soon'",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -47,6 +51,7 @@
     "eslint-config-next": "14.2.3",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
+    "prettier-plugin-tailwindcss": "0.6.1",
     "tailwindcss": "3.4.3",
     "typescript": "5.4.5"
   }
