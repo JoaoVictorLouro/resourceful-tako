@@ -30,7 +30,6 @@
         "christian-kohler.path-intellisense",
         "dbaeumer.vscode-eslint",
         "donjayamanne.githistory",
-        "dotjoshjohnson.xml",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
         "fr43nk.seito-openfile",
@@ -41,7 +40,8 @@
         "ms-azuretools.vscode-docker",
         "npxms.hide-gitignored",
         "PeterSchmalfeldt.explorer-exclude",
-        "wallabyjs.quokka-vscode"
+        "wallabyjs.quokka-vscode",
+        "Prisma.prisma"
       ]
     }
   }

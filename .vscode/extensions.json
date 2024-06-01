@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "adam-bender.commit-message-editor",
+    "christian-kohler.path-intellisense",
+    "dbaeumer.vscode-eslint",
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "fr43nk.seito-openfile",
+    "metaseed.metago",
+    "metaseed.metajump",
+    "metaseed.metaword",
+    "mgmcdermott.vscode-language-babel",
+    "ms-azuretools.vscode-docker",
+    "npxms.hide-gitignored",
+    "PeterSchmalfeldt.explorer-exclude",
+    "wallabyjs.quokka-vscode",
+    "Prisma.prisma"
+  ]
+}
