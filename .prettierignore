@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+pnpm-lock-main.yaml
+dist/
+coverage/
+.next/
+.cache/

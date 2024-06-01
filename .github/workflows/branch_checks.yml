@@ -1,0 +1,64 @@
+name: 'Branch Checks'
+on:
+  - 'push'
+
+jobs:
+  run-checks:
+    name: 'Run branch checks'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v4'
+      - name: 'Install pnpm'
+        run: 'npm install -g pnpm@^9.1.4'
+      - name: 'Get pnpm cache directory path'
+        id: 'pnpm-cache-dir-path'
+        run: 'echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT'
+      - name: 'Get pnpm lockfile (from the main branch)'
+        run: |
+          git fetch origin main
+          git show origin/main:pnpm-lock.yaml > ./pnpm-lock-main.yaml
+      - name: 'Get pnpm lockfile hash (from current branch)'
+        uses: 'seepine/hash-files@v1'
+        id: 'lockfile-hash-current'
+        with:
+          patterns: '**/pnpm-lock.yaml'
+      - name: 'Get pnpm lockfile hash (From main branch)'
+        uses: 'seepine/hash-files@v1'
+        id: 'lockfile-hash-main'
+        with:
+          patterns: '**/pnpm-lock-main.yaml'
+      - name: 'Fetch cached pnpm dependencies'
+        id: 'restore-pnpm-cache'
+        uses: 'actions/cache/restore@v4'
+        with:
+          path: |
+            ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: '${{ runner.os }}-pnpm-${{ steps.lockfile-hash-current.outputs.hash }}'
+          restore-keys: '${{ runner.os }}-pnpm-${{ steps.lockfile-hash-main.outputs.hash }}'
+      - name: 'Install dependencies'
+        run: 'pnpm install --frozen-lockfile'
+      - name: 'Test checks'
+        run: 'pnpm test:check'
+      - name: 'Formatter checks (pre-check and auto-fix)'
+        run: 'pnpm format:fix'
+        if: "startsWith(github.ref, 'refs/heads/automated/') && !startsWith(github.event.head_commit.message, 'Auto-fix formatter issues')"
+      - name: 'Commit auto-fix changes'
+        uses: 'EndBug/add-and-commit@v9'
+        if: "startsWith(github.ref, 'refs/heads/automated/') && !startsWith(github.event.head_commit.message, 'Auto-fix formatter issues')"
+        with:
+          message: 'Auto-fix formatter issues'
+          add: '-u'
+      - name: 'Linter checks'
+        run: 'pnpm lint:check'
+      - name: 'Formatter checks'
+        run: 'pnpm format:check'
+      - name: 'Build checks'
+        run: 'pnpm build'
+      - name: 'Save cached pnpm dependencies'
+        uses: 'actions/cache/save@v4'
+        if: "!startsWith(github.ref, 'refs/heads/automated/') && steps.restore-pnpm-cache.outputs.cache-hit != 'true'"
+        with:
+          path: |
+            ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: '${{ runner.os }}-pnpm-${{ steps.lockfile-hash-current.outputs.hash }}'
