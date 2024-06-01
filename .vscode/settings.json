@@ -47,7 +47,16 @@
   "typescript.referencesCodeLens.enabled": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative",
-  "prettier.documentSelectors": ["*.ts", "*.js", "*.html", "*.sh", "*.json", "*.jsonc", "*.yaml", "*.yml"],
+  "prettier.documentSelectors": [
+    "*.ts",
+    "*.js",
+    "*.html",
+    "*.sh",
+    "*.json",
+    "*.jsonc",
+    "*.yaml",
+    "*.yml"
+  ],
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
