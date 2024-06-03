@@ -14,7 +14,7 @@ FROM base AS prod_deps
 RUN pnpm install --prod
 
 # Docker stage
-FROM docker:20.10-dind AS docker
+FROM docker:26.1-dind AS docker
 
 # Production stage
 FROM node:22-alpine AS runner

@@ -1,4 +1,4 @@
-FROM docker:20.10-dind AS docker
+FROM docker:26.1-dind AS docker
 
 FROM node:22-alpine
 
