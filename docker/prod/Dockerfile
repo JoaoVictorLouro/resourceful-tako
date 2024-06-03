@@ -18,9 +18,10 @@ FROM docker:20.10-dind AS docker
 
 # Production stage
 FROM node:22-alpine AS runner
+ARG RELEASE_COMMIT="unknown"
 WORKDIR /app
 
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=true
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=true RELEASE=$RELEASE_COMMIT
 
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker-compose /usr/local/bin/
 COPY --from=builder /app/package.json ./package.json
