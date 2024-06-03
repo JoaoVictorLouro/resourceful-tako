@@ -24,9 +24,7 @@ jobs:
           push: true
           context: '.'
           file: './docker/prod/Dockerfile'
-          labels:
-            - org.opencontainers.image.source=https://github.com/JoaoVictorLouro/resourceful-tako
-          tags:
-            - 'github.com/JoaoVictorLouro/resourceful-tako:latest'
+          labels: 'org.opencontainers.image.source=https://github.com/JoaoVictorLouro/resourceful-tako'
+          tags: 'github.com/JoaoVictorLouro/resourceful-tako:latest'
           build-args: |
             RELEASE_COMMIT='${{ github.sha }}'
