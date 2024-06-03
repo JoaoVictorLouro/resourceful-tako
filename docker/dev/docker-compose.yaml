@@ -1,5 +1,4 @@
 name: 'resourceful-tako-dev'
-version: '3.8'
 
 services:
   resourceful_tako_dev:
