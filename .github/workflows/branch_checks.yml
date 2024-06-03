@@ -1,6 +1,6 @@
 name: 'Branch Checks'
 on:
-  - 'release'
+  - 'push'
 
 jobs:
   run-checks:
