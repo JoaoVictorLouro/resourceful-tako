@@ -25,6 +25,6 @@ jobs:
           context: '.'
           file: './docker/prod/Dockerfile'
           tags:
-            - 'github.com/${{ github.repository }}:latest'
+            - github.com/${{ github.repository }}:latest
           build-args: |
             RELEASE_COMMIT='${{ github.sha }}'
