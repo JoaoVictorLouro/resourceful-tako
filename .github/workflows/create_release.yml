@@ -25,7 +25,7 @@ jobs:
           context: '.'
           file: './docker/prod/Dockerfile'
           labels:
-            - org.opencontainers.image.source='https://github.com/${{ github.repository }}'
+            - org.opencontainers.image.source=https://github.com/${{ github.repository }}
           tags:
             - 'github.com/${{ github.repository }}:latest'
           build-args: |
