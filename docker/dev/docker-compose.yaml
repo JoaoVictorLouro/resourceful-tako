@@ -1,0 +1,18 @@
+name: 'resourceful-tako-dev'
+version: '3.8'
+
+services:
+  resourceful_tako_dev:
+    build:
+      context: ../../
+      dockerfile: ./docker/dev/Dockerfile
+    ports:
+      - 7062:7060
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - ../../:/app
+      - '~/docker/resourceful-tako/logs:/logs'
+      - '~/docker/resourceful-tako/config:/config'
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: 'file:/config/dev.db'
