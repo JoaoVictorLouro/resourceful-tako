@@ -1,0 +1,20 @@
+# Ignore node_modules
+node_modules
+
+# Ignore .next directory
+.next
+
+# Ignore any logs
+*.log
+
+# Ignore the Dockerfile
+Dockerfile
+
+# Ignore the .dockerignore file
+.dockerignore
+
+# Ignore .git directory
+.git/
+
+# Ignore .env files
+*.env

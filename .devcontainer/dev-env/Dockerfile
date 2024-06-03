@@ -38,11 +38,13 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && mkdir -p /config \
   && chmod -R 777 /config \
   && chmod -R g+s /config \
+  && mkdir -p /logs \
+  && chmod -R 777 /logs \
+  && chmod -R g+s /logs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-ENV ENVIRONMENT=development DOCKER_DEVCONTAINER=1
-ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+ENV ENVIRONMENT=development DOCKER_DEVCONTAINER=1 DBUS_SESSION_BUS_ADDRESS=/dev/null
 
 WORKDIR /workspace
 
