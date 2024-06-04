@@ -39,7 +39,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "5.14.0",
+    "@prisma/client": "5.15.0",
     "docker-compose": "0.24.8",
     "next": "14.2.3",
     "prisma": "5.14.0",
