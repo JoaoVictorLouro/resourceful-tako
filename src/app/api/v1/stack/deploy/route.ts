@@ -9,7 +9,7 @@ import { PrismaService } from '@/services/prisma.service';
  *       200:
  *         description: Hello World!
  */
-export async function POST(request: Request) {
+export async function POST(_request: Request) {
   const prisma = await PrismaService.get();
   const allStacks = await prisma.stack.findMany();
 

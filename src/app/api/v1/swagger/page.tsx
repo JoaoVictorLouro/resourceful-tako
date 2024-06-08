@@ -1,5 +1,5 @@
-import {SwaggerDocs} from "@/components/swagger-docs";
-import { SwaggerService } from "@/services/swagger.service";
+import { SwaggerDocs } from '@/components/swagger-docs';
+import { SwaggerService } from '@/services/swagger.service';
 
 export default async function IndexPage() {
   const spec = await SwaggerService.instance.getApiV1Docs();
