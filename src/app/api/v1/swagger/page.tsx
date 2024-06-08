@@ -1,3 +1,5 @@
+'use client'
+
 import { SwaggerDocs } from '@/components/swagger-docs';
 import { SwaggerService } from '@/services/swagger.service';
 
