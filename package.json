@@ -54,7 +54,7 @@
     "@types/supertest": "6.0.2",
     "@vitejs/plugin-react": "4.3.0",
     "@vitest/coverage-v8": "1.6.0",
-    "eslint": "8.57.0",
+    "eslint": "9.4.0",
     "eslint-config-next": "14.2.3",
     "jsdom": "24.1.0",
     "postcss": "8.4.38",
