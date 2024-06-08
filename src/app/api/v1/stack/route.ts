@@ -5,7 +5,5 @@ export async function POST(request: Request) {
   const data = CreateStackSchema.parse(await request.json());
   const createdStack = await StackService.get.createStack(data);
 
-  return {
-    stack: createdStack,
-  };
+  return new Response(JSON.stringify({ stack: createdStack }));
 }
