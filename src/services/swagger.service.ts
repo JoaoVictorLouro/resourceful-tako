@@ -9,7 +9,7 @@ export class SwaggerService {
     return this._instance || (this._instance = new this());
   }
 
-  async getApiV1Docs() {
+  async getApiV1Docs(): Promise<Record<string, unknown>> {
     return createSwaggerSpec({
       apiFolder: 'src/app/api',
       definition: {
@@ -29,6 +29,6 @@ export class SwaggerService {
         },
         security: [],
       },
-    });
+    }) as Record<string, unknown>;
   }
 }
