@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@v4'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: 'Install pnpm'
         run: 'npm install -g pnpm@^9.1.4'
       - name: 'Get pnpm cache directory path'
