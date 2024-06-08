@@ -32,9 +32,6 @@
   "editor.rulers": [100, 120, 140],
   "editor.tabSize": 2,
   "eslint.codeActionsOnSave.mode": "all",
-  "eslint.options": {
-    "extensions": [".js", ".ts", ".cjs", ".es"]
-  },
   "eslint.probe": ["javascript", "typescript"],
   "eslint.validate": ["javascript", "typescript"],
   "files.eol": "\n",
