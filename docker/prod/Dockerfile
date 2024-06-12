@@ -1,7 +1,7 @@
 FROM node:22-alpine AS base
 WORKDIR /app
 COPY package.json pnpm-lock.yaml prisma/ ./
-RUN npm install -g pnpm@^9.1.4
+RUN npm install -g pnpm@^9.3.0
 
 # Build stage
 FROM base AS builder
