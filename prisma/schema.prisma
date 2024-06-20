@@ -13,6 +13,7 @@ model Stack {
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
   code         String
+  cwd          String?
   notes        String?
   dependencies StackDependency[] @relation("dependencies")
   dependents   StackDependency[] @relation("dependents")
