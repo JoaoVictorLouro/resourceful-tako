@@ -42,7 +42,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
   && chmod -R 777 /logs \
   && chmod -R g+s /logs \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && groupadd docker \
+  && usermod -aG docker node
 
 ENV ENVIRONMENT=development DOCKER_DEVCONTAINER=1 DBUS_SESSION_BUS_ADDRESS=/dev/null
 

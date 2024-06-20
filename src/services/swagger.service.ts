@@ -14,11 +14,52 @@ export class SwaggerService {
       apiFolder: 'src/app/api',
       definition: {
         openapi: '3.0.0',
+        basePath: 'http://localhost:7060/api/v1',
         info: {
-          title: 'Next Swagger API Example',
+          title: 'Resourceful Tako - API v1',
+          description: 'Resourceful Tako API v1 documentation',
+          contact: {
+            email: 'resourceful.tako@joaovictor.com',
+            name: 'João Victor',
+            url: 'https://joaovictor.com',
+          },
+          license: {
+            name: 'GPL-3.0',
+            url: '',
+          },
+          termsOfService: '',
           version: '1.0',
         },
+        tags: [
+          {
+            name: 'stack',
+            description: 'Docker compose stack operations',
+          },
+        ],
         components: {
+          schemas: {
+            stack: {
+              type: 'object',
+              properties: {
+                id: {
+                  type: 'string',
+                  format: 'uuid',
+                },
+                name: {
+                  type: 'string',
+                },
+                code: {
+                  type: 'string',
+                },
+                cwd: {
+                  type: 'string',
+                },
+                notes: {
+                  type: 'string',
+                },
+              },
+            },
+          },
           securitySchemes: {
             BearerAuth: {
               type: 'http',
