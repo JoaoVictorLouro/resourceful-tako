@@ -2,7 +2,7 @@
 
 - Write it down here, add examples if possible
 
-# How to test it, expected behaviour:
+# How to test it, expected behavior:
 
 - Write down how to test and what to expect from this PR
 
