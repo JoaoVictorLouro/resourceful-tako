@@ -1,5 +1,7 @@
 import { CreateStackData } from '@/models/stack.model';
 import { PrismaService } from '@/services/prisma.service';
+import { Stack } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { config, upAll } from 'docker-compose';
 import { NextResponse } from 'next/server';
 
@@ -11,7 +13,14 @@ export class StackNotFoundError extends Error {
   }
 
   asResponse() {
-    return new NextResponse(JSON.stringify({ status: 404, error: 'Stack not found' }), { status: 404 });
+    return new NextResponse(
+      JSON.stringify({
+        status: 404,
+        message: `Stack with ID ${this.stackId} not found`,
+        errors: [{ code: 'not_found', message: 'Stack not found' }],
+      }),
+      { status: 404 },
+    );
   }
 }
 
@@ -29,8 +38,6 @@ export class StackService {
   }
 
   async createStack(data: CreateStackData) {
-    const c = await config({ configAsString: data.code });
-    console.log({ c });
     const prisma = await PrismaService.get();
     return prisma.stack.create({ data });
   }
@@ -45,12 +52,27 @@ export class StackService {
     return result;
   }
 
+  async deleteStackById(id: string) {
+    const prisma = await PrismaService.get();
+    try {
+      await prisma.stack.delete({ where: { id } });
+    } catch (e) {
+      if ((e as PrismaClientKnownRequestError)?.code === 'P2025') {
+        throw new StackNotFoundError(id);
+      }
+      throw e;
+    }
+  }
+
+  async saveStack(stack: Stack) {
+    const prisma = await PrismaService.get();
+    return prisma.stack.update({ where: { id: stack.id }, data: stack });
+  }
+
   async deployStack(id: string) {
     const stack = await this.getStackById(id);
 
     await config({ configAsString: stack.code });
-
-    console.log({ stack: stack.code });
 
     const result = await upAll({
       cwd: stack.cwd || undefined,
