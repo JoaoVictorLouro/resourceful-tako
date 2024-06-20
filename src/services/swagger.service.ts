@@ -1,4 +1,3 @@
-import { StackNotFoundError } from '@/services/stack.service';
 import { createSwaggerSpec } from 'next-swagger-doc';
 
 export class SwaggerService {
