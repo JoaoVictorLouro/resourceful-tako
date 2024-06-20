@@ -2,7 +2,6 @@ import { NextRequestContext } from '@/util/api/next-request-context';
 import { InvalidRequestError, getValidatedRequestData } from '@/util/api/get-validated-request-data';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import {} from '@prisma/client';
 import { StackNotFoundError, StackService } from '@/services/stack.service';
 
 /**

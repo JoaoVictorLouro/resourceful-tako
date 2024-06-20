@@ -38,7 +38,7 @@ export class SwaggerService {
         ],
         components: {
           schemas: {
-            stack: {
+            Stack: {
               type: 'object',
               properties: {
                 id: {
@@ -56,6 +56,35 @@ export class SwaggerService {
                 },
                 notes: {
                   type: 'string',
+                },
+              },
+            },
+            StackNotFoundError: {
+              type: 'object',
+              properties: {
+                status: {
+                  type: 'number',
+                  example: 404,
+                },
+                message: {
+                  type: 'string',
+                  example: 'Stack not found',
+                },
+                errors: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      code: {
+                        type: 'string',
+                        example: 'not_found',
+                      },
+                      message: {
+                        type: 'string',
+                        example: 'Stack not found',
+                      },
+                    },
+                  },
                 },
               },
             },

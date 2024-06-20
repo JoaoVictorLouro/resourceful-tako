@@ -36,7 +36,7 @@ import { NextRequest } from 'next/server';
  *         content:
  *           application/json:
  *            schema:
- *             $ref: '#/components/schemas/stack'
+ *             $ref: '#/components/schemas/Stack'
  */
 export const POST = async (req: NextRequest) => {
   try {
@@ -49,4 +49,28 @@ export const POST = async (req: NextRequest) => {
     }
     throw e;
   }
+};
+
+/**
+ * @swagger
+ * /api/v1/stack:
+ *   get:
+ *     description: Gets the list of stacks in the database
+ *     tags:
+ *       - stack
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: The list of stacks
+ *         content:
+ *           application/json:
+ *            schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/Stack'
+ */
+export const GET = async (_req: NextRequest) => {
+  const stacks = await StackService.get.getAllStacks();
+  return Response.json({ status: 200, data: stacks }, { status: 200 });
 };

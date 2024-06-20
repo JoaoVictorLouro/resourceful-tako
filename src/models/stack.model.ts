@@ -28,7 +28,8 @@ export const CreateStackSchema = z.object({
         });
       }
     }),
-  notes: z.string().default(''),
+  cwd: z.string().optional().nullable(),
+  notes: z.string().optional().nullable().default(''),
 });
 
 export type CreateStackData = z.infer<typeof CreateStackSchema>;
