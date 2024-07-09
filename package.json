@@ -44,7 +44,7 @@
     "next": "14.2.4",
     "next-swagger-doc": "0.4.0",
     "next-validations": "0.4.2",
-    "prisma": "5.16.1",
+    "prisma": "5.16.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "swagger-ui-react": "5.17.14",
