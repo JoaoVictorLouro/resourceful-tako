@@ -8,7 +8,7 @@ NO_COLOR='\033[0m'
 export $(cat .env | sed 's/#.*//g' | xargs)
 
 echo -e "${GREEN_COLOR}# Installing project node dependencies...${NO_COLOR}"
-npm install -g pnpm@^9.4.0;
+npm install -g $(node -e "console.log(require('./package.json').packageManager)");
 pnpm config set store-dir /pnpm-store;
 pnpm install;
 pnpm exec next telemetry disable;

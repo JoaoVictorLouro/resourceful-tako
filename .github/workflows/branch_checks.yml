@@ -13,7 +13,9 @@ jobs:
         with:
           node-version: 22
       - name: 'Install pnpm'
-        run: 'npm install -g pnpm@^9.4.0'
+        shell: 'bash'
+        run: |
+          npm install -g $(node -e "console.log(require('./package.json').packageManager)")
       - name: 'Get pnpm cache directory path'
         id: 'pnpm-cache-dir-path'
         run: 'echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT'

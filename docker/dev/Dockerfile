@@ -7,7 +7,7 @@ COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker-compose /usr/loca
 WORKDIR /app
 EXPOSE 7060
 
-RUN npm install -g pnpm@^9.4.0 \
+RUN npm install -g $(node -e "console.log(require('./package.json').packageManager)") \
   && mkdir -p /pnpm-store \
   && chmod -R 777 /pnpm-store \
   && chmod -R g+s /pnpm-store \
