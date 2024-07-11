@@ -9,8 +9,9 @@ services:
       - 7061:7060
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      # - '~/docker/resourceful-tako/logs:/logs'
-      # - '~/docker/resourceful-tako/config:/config'
+      - './resourceful-tako/logs:/logs'
+      - './resourceful-tako/config:/config'
     environment:
       NODE_ENV: production
       DATABASE_URL: 'file:/config/dev.db'
+      API_KEY: '<generate_a_long_api_key>'

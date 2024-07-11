@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
  *   post:
  *     description: Creates a new stack
  *     tags:
- *       - stack
+ *       - Stack
  *     produces:
  *       - application/json
  *     parameters:
@@ -57,7 +57,7 @@ export const POST = async (req: NextRequest) => {
  *   get:
  *     description: Gets the list of stacks in the database
  *     tags:
- *       - stack
+ *       - Stack
  *     produces:
  *       - application/json
  *     responses:
