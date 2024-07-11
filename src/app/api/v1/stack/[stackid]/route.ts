@@ -11,7 +11,7 @@ import { z } from 'zod';
  *   get:
  *     description: Gets a single stack from the database
  *     tags:
- *       - stack
+ *       - Stack
  *     produces:
  *       - application/json
  *     responses:
@@ -64,7 +64,7 @@ export const GET = async (req: NextRequest, context: NextRequestContext) => {
  *   patch:
  *     description: Updates a single stack from the database
  *     tags:
- *       - stack
+ *       - Stack
  *     produces:
  *       - application/json
  *     responses:
@@ -121,7 +121,7 @@ export const PATCH = async (req: NextRequest, context: NextRequestContext) => {
  *   delete:
  *     description: Deletes a single stack from the database
  *     tags:
- *       - stack
+ *       - Stack
  *     produces:
  *       - application/json
  *     responses:

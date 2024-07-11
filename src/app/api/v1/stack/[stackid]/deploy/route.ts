@@ -10,7 +10,7 @@ import { StackNotFoundError, StackService } from '@/services/stack.service';
  *   post:
  *     description: Deploys a stack to the Docker daemon
  *     tags:
- *       - stack
+ *       - Stack
  *     produces:
  *       - application/json
  *     parameters:

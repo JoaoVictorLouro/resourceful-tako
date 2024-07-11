@@ -32,7 +32,7 @@ export class SwaggerService {
         },
         tags: [
           {
-            name: 'stack',
+            name: 'Stack',
             description: 'Docker compose stack operations',
           },
         ],
