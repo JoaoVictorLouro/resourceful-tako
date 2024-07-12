@@ -1,13 +1,14 @@
 import { CreateStackSchema } from '@/models/stack.model';
-import { StackNotFoundError, StackService } from '@/services/stack.service';
-import { InvalidRequestError, getValidatedRequestData } from '@/util/api/get-validated-request-data';
+import { StackService } from '@/services/stack.service';
+import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
+import { getValidatedRequestData } from '@/util/api/get-validated-request-data';
 import { NextRequestContext } from '@/util/api/next-request-context';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 /**
  * @swagger
- * /api/v1/stack/:stackid:
+ * /api/v1/stack/:stack_id:
  *   get:
  *     description: Gets a single stack from the database
  *     tags:
@@ -28,29 +29,30 @@ import { z } from 'zod';
  *            schema:
  *              $ref: '#/components/schemas/StackNotFoundError'
  */
-export const GET = async (req: NextRequest, context: NextRequestContext) => {
+export const GET = async (_req: NextRequest, context: NextRequestContext) => {
   try {
     const { params } = await getValidatedRequestData(
       { context },
       {
         params: z.object({
-          stackid: z.string(),
+          stack_id: z.string(),
         }),
       },
     );
 
-    const stack = await StackService.get.getStackById(params.stackid);
+    const stack = await StackService.get.getStackById(params.stack_id);
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         status: 200,
-        stack,
-      }),
+        data: { stack },
+      },
+      {
+        status: 200,
+      },
     );
   } catch (e) {
-    if (e instanceof InvalidRequestError) {
-      return e.asResponse();
-    } else if (e instanceof StackNotFoundError) {
+    if (e instanceof ErrorTranslatableToResponse) {
       return e.asResponse();
     }
 
@@ -60,7 +62,7 @@ export const GET = async (req: NextRequest, context: NextRequestContext) => {
 
 /**
  * @swagger
- * /api/v1/stack/:stackid:
+ * /api/v1/stack/:stack_id:
  *   patch:
  *     description: Updates a single stack from the database
  *     tags:
@@ -87,27 +89,28 @@ export const PATCH = async (req: NextRequest, context: NextRequestContext) => {
       { context, req },
       {
         params: z.object({
-          stackid: z.string(),
+          stack_id: z.string(),
         }),
         body: CreateStackSchema.partial(),
       },
     );
 
-    let stack = await StackService.get.getStackById(params.stackid);
+    let stack = await StackService.get.getStackById(params.stack_id);
     Object.assign(stack, body);
 
-    stack = await StackService.get.saveStack(stack);
+    stack = await StackService.get.updateStack(stack);
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         status: 200,
-        stack,
-      }),
+        data: { stack },
+      },
+      {
+        status: 200,
+      },
     );
   } catch (e) {
-    if (e instanceof InvalidRequestError) {
-      return e.asResponse();
-    } else if (e instanceof StackNotFoundError) {
+    if (e instanceof ErrorTranslatableToResponse) {
       return e.asResponse();
     }
 
@@ -117,7 +120,7 @@ export const PATCH = async (req: NextRequest, context: NextRequestContext) => {
 
 /**
  * @swagger
- * /api/v1/stack/:stackid:
+ * /api/v1/stack/:stack_id:
  *   delete:
  *     description: Deletes a single stack from the database
  *     tags:
@@ -142,28 +145,27 @@ export const PATCH = async (req: NextRequest, context: NextRequestContext) => {
  *            schema:
  *              $ref: '#/components/schemas/StackNotFoundError'
  */
-export const DELETE = async (req: NextRequest, context: NextRequestContext) => {
+export const DELETE = async (_req: NextRequest, context: NextRequestContext) => {
   try {
     const { params } = await getValidatedRequestData(
-      { context, req },
+      { context },
       {
         params: z.object({
-          stackid: z.string(),
+          stack_id: z.string(),
         }),
       },
     );
 
-    await StackService.get.deleteStackById(params.stackid);
+    await StackService.get.deleteStackById(params.stack_id);
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         status: 200,
-      }),
+      },
+      { status: 200 },
     );
   } catch (e) {
-    if (e instanceof InvalidRequestError) {
-      return e.asResponse();
-    } else if (e instanceof StackNotFoundError) {
+    if (e instanceof ErrorTranslatableToResponse) {
       return e.asResponse();
     }
 

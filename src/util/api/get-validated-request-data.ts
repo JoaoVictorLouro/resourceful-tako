@@ -1,8 +1,9 @@
+import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
 import { NextRequestContext } from '@/util/api/next-request-context';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { Schema, z } from 'zod';
 
-export class InvalidRequestError extends Error {
+export class InvalidRequestError extends ErrorTranslatableToResponse {
   public readonly zodError: z.ZodError;
   constructor(err: z.ZodError) {
     super('The requst data is invalid.');
@@ -10,7 +11,7 @@ export class InvalidRequestError extends Error {
   }
 
   asResponse() {
-    const res = Response.json(
+    return NextResponse.json(
       {
         status: 400,
         message: 'Invalid request data.',
@@ -20,7 +21,6 @@ export class InvalidRequestError extends Error {
         status: 400,
       },
     );
-    return res;
   }
 }
 

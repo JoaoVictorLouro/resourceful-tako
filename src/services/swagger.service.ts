@@ -35,6 +35,10 @@ export class SwaggerService {
             name: 'Stack',
             description: 'Docker compose stack operations',
           },
+          {
+            name: 'StackDependency',
+            description: 'A link modeling a dependency between 2 Stacks',
+          },
         ],
         components: {
           schemas: {
@@ -53,6 +57,26 @@ export class SwaggerService {
                 },
                 cwd: {
                   type: 'string',
+                },
+                notes: {
+                  type: 'string',
+                },
+              },
+            },
+            StackDependency: {
+              type: 'object',
+              properties: {
+                id: {
+                  type: 'string',
+                  format: 'uuid',
+                },
+                stackId: {
+                  type: 'string',
+                  format: 'uuid',
+                },
+                dependsOnStackId: {
+                  type: 'string',
+                  format: 'uuid',
                 },
                 notes: {
                   type: 'string',
@@ -90,14 +114,19 @@ export class SwaggerService {
             },
           },
           securitySchemes: {
-            BearerAuth: {
-              type: 'http',
-              scheme: 'bearer',
-              bearerFormat: 'JWT',
+            ApiKey: {
+              type: 'apiKey',
+              in: 'header',
+              name: 'X-API-KEY',
+              description: "API Key added to the API_KEY environment variable in the server's environment",
             },
           },
         },
-        security: [],
+        security: [
+          {
+            ApiKey: [],
+          },
+        ],
       },
     }) as Record<string, unknown>;
   }

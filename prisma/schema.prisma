@@ -16,7 +16,6 @@ model Stack {
   cwd          String?
   notes        String?
   dependencies StackDependency[] @relation("dependencies")
-  dependents   StackDependency[] @relation("dependents")
 }
 
 model StackDependency {
@@ -27,5 +26,4 @@ model StackDependency {
   updatedAt        DateTime @updatedAt
   notes            String?
   stack            Stack    @relation(fields: [stackId], references: [id], name: "dependencies")
-  dependsOn        Stack    @relation(fields: [dependsOnStackId], references: [id], name: "dependents")
 }

@@ -1,7 +1,8 @@
 import { CreateStackSchema } from '@/models/stack.model';
 import { StackService } from '@/services/stack.service';
-import { getValidatedRequestData, InvalidRequestError } from '@/util/api/get-validated-request-data';
-import { NextRequest } from 'next/server';
+import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
+import { getValidatedRequestData } from '@/util/api/get-validated-request-data';
+import { NextRequest, NextResponse } from 'next/server';
 
 /**
  * @swagger
@@ -31,7 +32,7 @@ import { NextRequest } from 'next/server';
  *         description: Any notes or comments you want to add to the stack
  *         required: false
  *     responses:
- *       200:
+ *       201:
  *         description: The created stack
  *         content:
  *           application/json:
@@ -42,9 +43,9 @@ export const POST = async (req: NextRequest) => {
   try {
     const { body } = await getValidatedRequestData({ req }, { body: CreateStackSchema });
     const createdStack = await StackService.get.createStack(body);
-    return Response.json({ status: 200, data: { stack: createdStack } }, { status: 200 });
+    return NextResponse.json({ status: 201, data: { stack: createdStack } }, { status: 201 });
   } catch (e) {
-    if (e instanceof InvalidRequestError) {
+    if (e instanceof ErrorTranslatableToResponse) {
       return e.asResponse();
     }
     throw e;
@@ -72,5 +73,5 @@ export const POST = async (req: NextRequest) => {
  */
 export const GET = async (_req: NextRequest) => {
   const stacks = await StackService.get.getAllStacks();
-  return Response.json({ status: 200, data: stacks }, { status: 200 });
+  return NextResponse.json({ status: 200, data: { stacks } }, { status: 200 });
 };
