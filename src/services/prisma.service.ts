@@ -24,5 +24,5 @@ declare const globalThis: {
 
 export const PrismaService =
   process.env.NODE_ENV !== 'production'
-    ? globalThis.PrismaService ?? ((globalThis.PrismaService = PrismaServiceSingleton), PrismaServiceSingleton)
+    ? (globalThis.PrismaService ?? ((globalThis.PrismaService = PrismaServiceSingleton), PrismaServiceSingleton))
     : PrismaServiceSingleton;
