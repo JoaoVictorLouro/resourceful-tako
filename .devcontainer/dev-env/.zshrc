@@ -8,6 +8,7 @@ COMPLETION_WAITING_DOTS="true"
 ENABLE_CORRECTION="false"
 DISABLE_AUTO_UPDATE=true
 DISABLE_UPDATE_PROMPT=true
+ZSH_DOTENV_PROMPT=false
 
 plugins=(
   dircycle dirhistory dotenv git gitignore history node npm sudo wd zsh-navigation-tools
