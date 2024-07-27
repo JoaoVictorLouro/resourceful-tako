@@ -12,7 +12,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     coverage: {
-      reporter: ['json'],
+      reporter: ['json', 'html'],
     },
     env: {
       ...env,

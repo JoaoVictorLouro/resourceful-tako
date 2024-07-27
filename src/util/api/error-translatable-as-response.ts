@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { InvalidRequestErrorResponse } from '@/util/api/get-validated-request-data';
 
 export class ErrorTranslatableToResponse extends Error {
-  asResponse(): NextResponse {
+  asResponse(): InvalidRequestErrorResponse {
     throw new Error('Method not implemented');
   }
 }

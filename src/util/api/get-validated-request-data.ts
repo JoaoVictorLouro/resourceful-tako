@@ -3,6 +3,14 @@ import { NextRequestContext } from '@/util/api/next-request-context';
 import { NextRequest, NextResponse } from 'next/server';
 import { Schema, z } from 'zod';
 
+export type InvalidRequestErrorResponseData = {
+  status: number;
+  message: string;
+  errors: z.ZodIssue[];
+};
+
+export type InvalidRequestErrorResponse = NextResponse<InvalidRequestErrorResponseData>;
+
 export class InvalidRequestError extends ErrorTranslatableToResponse {
   public readonly zodError: z.ZodError;
   constructor(err: z.ZodError) {
@@ -10,7 +18,7 @@ export class InvalidRequestError extends ErrorTranslatableToResponse {
     this.zodError = err;
   }
 
-  asResponse() {
+  asResponse(): InvalidRequestErrorResponse {
     return NextResponse.json(
       {
         status: 400,
@@ -44,6 +52,14 @@ export async function getValidatedRequestData<
   query: QuerySchema extends void ? null : z.infer<Exclude<QuerySchema, void>>;
 }> {
   try {
+    if (schema.params && !data.context) {
+      throw new Error('The `context` is required when validating `params`.');
+    }
+
+    if ((schema.query || schema.body) && !data.req) {
+      throw new Error('The `req` is required when validating `body` or `query`.');
+    }
+
     const body = schema.body && data.req ? await schema.body.parseAsync(await data.req.json()) : undefined;
     const query =
       schema.query && data.req ? await schema.query.parseAsync(Object.fromEntries(data.req.nextUrl.searchParams.entries())) : undefined;

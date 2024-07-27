@@ -1,7 +1,9 @@
 import { CreateStackSchema } from '@/models/stack.model';
 import { StackService } from '@/services/stack.service';
+import { BodyWithStatus } from '@/util/api/body-with-status';
 import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
 import { getValidatedRequestData } from '@/util/api/get-validated-request-data';
+import { Stack } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
@@ -39,7 +41,7 @@ import { NextRequest, NextResponse } from 'next/server';
  *            schema:
  *             $ref: '#/components/schemas/Stack'
  */
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest): Promise<NextResponse<BodyWithStatus<{ stack: Stack }>>> => {
   try {
     const { body } = await getValidatedRequestData({ req }, { body: CreateStackSchema });
     const createdStack = await StackService.get.createStack(body);
@@ -71,7 +73,7 @@ export const POST = async (req: NextRequest) => {
  *             items:
  *               $ref: '#/components/schemas/Stack'
  */
-export const GET = async (_req: NextRequest) => {
+export const GET = async (_req: NextRequest): Promise<NextResponse<BodyWithStatus<{ stacks: Stack[] }>>> => {
   const stacks = await StackService.get.getAllStacks();
   return NextResponse.json({ status: 200, data: { stacks } }, { status: 200 });
 };

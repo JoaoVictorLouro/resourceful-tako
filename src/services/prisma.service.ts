@@ -1,3 +1,4 @@
+import { EnvService } from '@/services/env.service';
 import { PrismaClient } from '@prisma/client';
 
 class PrismaServiceSingleton {
@@ -5,7 +6,9 @@ class PrismaServiceSingleton {
   prisma: PrismaClient;
 
   private constructor() {
-    this.prisma = new PrismaClient();
+    this.prisma = new PrismaClient({
+      datasourceUrl: EnvService.instance.databaseUrl,
+    });
   }
 
   private async connect() {

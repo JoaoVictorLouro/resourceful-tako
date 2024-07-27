@@ -7,9 +7,9 @@ import { NextRequestContext } from '@/util/api/next-request-context';
 
 /**
  * @swagger
- * /api/v1/stack/:stack_id/deploy:
- *   post:
- *     description: Deploys a stack to the Docker daemon
+ * /api/v1/stack/:stack_id/status:
+ *   get:
+ *     description: Retrieves a stack status from the Docker daemon
  *     tags:
  *       - Stack
  *     produces:
@@ -17,13 +17,13 @@ import { NextRequestContext } from '@/util/api/next-request-context';
  *     parameters:
  *       - name: stack_id
  *         in: path
- *         description: The ID of the stack to deploy
+ *         description: The ID of the stack to retrieve the status
  *         required: true
  *     responses:
  *       200:
- *         description: Deploys the stack the Docker daemon
+ *         description: Returns the status of the stack from the Docker daemon
  */
-export const POST = async (req: NextRequest, context: NextRequestContext) => {
+export const GET = async (req: NextRequest, context: NextRequestContext) => {
   try {
     const { params } = await getValidatedRequestData(
       { req, context },
@@ -34,12 +34,13 @@ export const POST = async (req: NextRequest, context: NextRequestContext) => {
       },
     );
 
-    const { result, stack } = await StackService.get.deployStack(params.stack_id);
+    const status = await StackService.get.getStackStatus(params.stack_id);
 
     return NextResponse.json(
       {
-        result,
-        stack,
+        data: {
+          status,
+        },
       },
       {
         status: 200,

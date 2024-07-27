@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: 'sample_with_deps'
+    image: nginx:latest
+    labels:
+      - 'Sample'

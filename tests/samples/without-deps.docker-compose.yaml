@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: 'sample_without_deps'
+    image: nginx:latest
+    labels:
+      - 'Sample'
+  another:
+    container_name: 'another_without_deps'
+    image: nginx:latest
+    labels:
+      - 'Another'

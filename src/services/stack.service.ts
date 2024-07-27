@@ -3,8 +3,9 @@ import { PrismaService } from '@/services/prisma.service';
 import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
 import { Stack, StackDependency } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { config, upAll } from 'docker-compose';
+import { config, upAll, down, ps } from 'docker-compose';
 import { NextResponse } from 'next/server';
+import Yaml from 'yaml';
 
 interface StackDependencyTree {
   stackId: string;
@@ -96,6 +97,8 @@ export class DependencyCycleDetectedError extends ErrorTranslatableToResponse {
   }
 }
 
+export const MANAGED_CONTAINER_LABEL = 'resourceful-tako-managed';
+
 export class StackService {
   private static _instance: StackService;
   private constructor() {}
@@ -173,25 +176,144 @@ export class StackService {
     return prisma.stackDependency.update({ where: { id: stackDependency.id }, data: stackDependency });
   }
 
-  async deployStack(stackId: string, redeployDependents: boolean = true) {
+  private async addMetadataToComposeString(composeContents: string, cwd: string | undefined | null): Promise<string> {
+    const { data } = await config({ configAsString: composeContents, cwd: cwd || undefined }).catch(() => {
+      return config({ configAsString: composeContents });
+    });
+
+    Object.values(data.config.services).forEach(_service => {
+      const service = _service as Record<string, unknown>;
+      service.labels = service.labels || [];
+      if (Array.isArray(service.labels)) {
+        service.labels = service.labels.filter((label: string) => label !== MANAGED_CONTAINER_LABEL);
+      }
+    });
+
+    return Yaml.stringify(data.config);
+  }
+
+  async teardownStack(stackId: string) {
     const dependentsTree = await this.getDependentsTree(stackId);
     for (const dependentId of dependentsTree.dependents.map(r => r.stackId)) {
-      await this.deployStack(dependentId, redeployDependents);
+      await this.teardownStack(dependentId);
     }
 
     const stack = await this.getStackById(stackId);
 
-    await config({ configAsString: stack.code });
+    const config = await this.addMetadataToComposeString(stack.code, stack.cwd);
 
-    const result = await upAll({
+    try {
+      const result = await down({
+        cwd: stack.cwd || undefined,
+        configAsString: config,
+        log: true,
+      });
+
+      return {
+        result,
+        stack,
+      };
+    } catch (e) {
+      console.error(e);
+      return {
+        stack,
+        error: e,
+      };
+    }
+  }
+
+  async tearDownAllStacks() {
+    const stacks = await this.getAllStacks();
+    for (const stack of stacks) {
+      await this.teardownStack(stack.id);
+    }
+  }
+
+  async getStackStatus(stackId: string) {
+    const stack = await this.getStackById(stackId);
+    const config = await this.addMetadataToComposeString(stack.code, stack.cwd);
+
+    const isRunning = await ps({
+      configAsString: config,
       cwd: stack.cwd || undefined,
-      configAsString: stack.code,
     });
 
+    if (!isRunning) {
+      return {
+        allGreen: false,
+        deployed: false,
+        services: {},
+      };
+    }
+
+    const { err, out: outString } = await ps({
+      configAsString: config,
+      cwd: stack.cwd || undefined,
+      commandOptions: ['--format', 'json'],
+    });
+
+    const servicesStatus: {
+      ID: string;
+      Name: string;
+      Service: string;
+      State: string;
+      ExitCode: number;
+      Status: string;
+      Image: string;
+    }[] = outString
+      .trim()
+      .split('\n')
+      .map(r => JSON.parse(r.trim()));
+
+    if (err) {
+      throw err;
+    }
+
     return {
-      result,
-      stack,
+      allGreen: servicesStatus.every(s => s['State'] === 'running' && s['ExitCode'] === 0),
+      deployed: true,
+      services: Object.fromEntries(
+        servicesStatus.map(r => {
+          return [r.Service, { state: r.State, exitCode: r.ExitCode, status: r.Status, containerName: r.Name, containerID: r.ID }];
+        }),
+      ),
     };
+  }
+
+  async deployStack(stackId: string) {
+    const dependentsTree = await this.getDependentsTree(stackId);
+    for (const dependentId of dependentsTree.dependents.map(r => r.stackId)) {
+      await this.teardownStack(dependentId);
+    }
+
+    const stack = await this.getStackById(stackId);
+
+    try {
+      const config = await this.addMetadataToComposeString(stack.code, stack.cwd);
+
+      const result = await upAll({
+        cwd: stack.cwd || undefined,
+        configAsString: config,
+      });
+
+      const status = await this.getStackStatus(stackId);
+
+      if (status.deployed && !status.allGreen) {
+        throw new Error('Some services are not running');
+      }
+
+      for (const dependentId of dependentsTree.dependents.map(r => r.stackId)) {
+        await this.deployStack(dependentId);
+      }
+
+      return {
+        result,
+        stack,
+      };
+    } catch (e) {
+      await this.teardownStack(stackId);
+      throw e;
+    }
   }
 
   async getDependencyTree(stackId: string): Promise<StackDependencyTree> {
