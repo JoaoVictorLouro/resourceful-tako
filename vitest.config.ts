@@ -11,6 +11,7 @@ export default defineConfig({
   envDir: Path.resolve(import.meta.dirname, './tests/config'),
   test: {
     testTimeout: 30000,
+    fileParallelism: false,
     environment: 'jsdom',
     coverage: {
       reporter: ['json', 'html'],
