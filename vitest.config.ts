@@ -15,6 +15,7 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       reporter: ['json', 'html'],
+      include: ['src/**/*'],
     },
     env: {
       ...env,

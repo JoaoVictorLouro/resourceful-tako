@@ -4,6 +4,9 @@ import { z } from 'zod';
 import { StackService } from '@/services/stack.service';
 import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
 import { NextRequestContext } from '@/util/api/next-request-context';
+import { BodyWithStatus } from '@/util/api/body-with-status';
+import { Stack } from '@prisma/client';
+import { IDockerComposeResult } from 'docker-compose';
 
 /**
  * @swagger
@@ -23,7 +26,17 @@ import { NextRequestContext } from '@/util/api/next-request-context';
  *       200:
  *         description: Deploys the stack the Docker daemon
  */
-export const POST = async (req: NextRequest, context: NextRequestContext) => {
+export const POST = async (
+  req: NextRequest,
+  context: NextRequestContext,
+): Promise<
+  NextResponse<
+    BodyWithStatus<{
+      stack: Stack;
+      result: IDockerComposeResult;
+    }>
+  >
+> => {
   try {
     const { params } = await getValidatedRequestData(
       { req, context },
@@ -38,8 +51,11 @@ export const POST = async (req: NextRequest, context: NextRequestContext) => {
 
     return NextResponse.json(
       {
-        result,
-        stack,
+        status: 200,
+        data: {
+          result,
+          stack,
+        },
       },
       {
         status: 200,

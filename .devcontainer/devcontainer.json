@@ -41,7 +41,8 @@
         "npxms.hide-gitignored",
         "PeterSchmalfeldt.explorer-exclude",
         "wallabyjs.quokka-vscode",
-        "Prisma.prisma"
+        "Prisma.prisma",
+        "vitest.explorer"
       ]
     }
   }
