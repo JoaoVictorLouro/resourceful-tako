@@ -1,6 +1,7 @@
 import { CreateStackData } from '@/models/stack.model';
 import { PrismaService } from '@/services/prisma.service';
 import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
+import { InvalidRequestErrorResponse } from '@/util/api/get-validated-request-data';
 import { Stack, StackDependency } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { config, upAll, down, ps } from 'docker-compose';
@@ -26,7 +27,7 @@ export class StackNotFoundError extends ErrorTranslatableToResponse {
     this.stackId = stackId;
   }
 
-  asResponse() {
+  asResponse(): InvalidRequestErrorResponse {
     return NextResponse.json(
       {
         status: 404,
@@ -45,7 +46,7 @@ export class StackDependencyNotFoundError extends ErrorTranslatableToResponse {
     this.stackDependencyId = stackDependencyId;
   }
 
-  asResponse() {
+  asResponse(): InvalidRequestErrorResponse {
     return NextResponse.json(
       {
         status: 404,
@@ -64,7 +65,7 @@ export class StackDependencyConfigurationError extends ErrorTranslatableToRespon
     this.stackDependencyId = stackDependencyId;
   }
 
-  asResponse() {
+  asResponse(): InvalidRequestErrorResponse {
     return NextResponse.json(
       {
         status: 400,
@@ -85,7 +86,7 @@ export class DependencyCycleDetectedError extends ErrorTranslatableToResponse {
     this.dependentStackId = dependentStackId;
   }
 
-  asResponse() {
+  asResponse(): InvalidRequestErrorResponse {
     return new NextResponse(
       JSON.stringify({
         status: 404,

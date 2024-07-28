@@ -6,7 +6,7 @@ import { Schema, z } from 'zod';
 export type InvalidRequestErrorResponseData = {
   status: number;
   message: string;
-  errors: z.ZodIssue[];
+  errors: (z.ZodIssue | { code: string; message: string })[];
 };
 
 export type InvalidRequestErrorResponse = NextResponse<InvalidRequestErrorResponseData>;
