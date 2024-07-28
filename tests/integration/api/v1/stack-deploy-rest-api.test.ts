@@ -49,8 +49,6 @@ describe('Stack Deploy REST API', () => {
 
     const r = execSync('docker ps --format json', { encoding: 'utf-8' });
 
-    console.log({ r });
-
     const data = r
       .trim()
       .split('\n')
