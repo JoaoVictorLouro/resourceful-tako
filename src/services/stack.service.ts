@@ -251,7 +251,7 @@ export class StackService {
       cwd: stack.cwd || undefined,
       commandOptions: ['--format', 'json'],
     }).then(r => {
-      if (!err && !r.out) {
+      if (!r.err && !r.out) {
         return ps({
           configAsString: config,
           commandOptions: ['--format', 'json'],
