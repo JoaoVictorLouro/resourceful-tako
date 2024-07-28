@@ -207,7 +207,6 @@ export class StackService {
       const result = await down({
         cwd: stack.cwd || undefined,
         configAsString: config,
-        log: true,
       });
 
       return {
