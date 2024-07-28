@@ -3,8 +3,12 @@ import { NextResponse } from 'next/server';
 import { expect } from 'vitest';
 
 export async function getValidResponse<T>(response: NextResponse<BodyWithStatus<T>>) {
-  expect(response.ok, 'Response returned an invalid status').toBe(true);
   const body = (await response.json()) as ExtractBodyFromResponse<typeof response>;
+  if (!response.ok) {
+    console.error('Invalid response body:');
+    console.error(body);
+  }
+  expect(response.ok, 'Response returned an invalid status').toBe(true);
 
   expect(response.status, 'Body status and response status should be the same').toBe(body.status);
 

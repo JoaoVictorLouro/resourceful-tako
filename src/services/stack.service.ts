@@ -179,13 +179,19 @@ export class StackService {
         `Stack cannot depend on itself: Stack ID ${stackDependency.stackId}`,
       );
     }
+    const prisma = await PrismaService.get();
+    const currentSavedStackDependency = (await prisma.stackDependency.findUnique({ where: { id: stackDependency.id } }))!;
 
-    const dependentStackDependencyTree = await this.getDependencyTree(stackDependency.stackId);
-    if (dependentStackDependencyTree.allDependencies.has(stackDependency.dependsOnStackId)) {
-      throw new DependencyCycleDetectedError(stackDependency.stackId, stackDependency.dependsOnStackId);
+    if (
+      currentSavedStackDependency.stackId !== stackDependency.stackId ||
+      currentSavedStackDependency.dependsOnStackId !== stackDependency.dependsOnStackId
+    ) {
+      const dependentStackDependencyTree = await this.getDependencyTree(stackDependency.stackId);
+      if (dependentStackDependencyTree.allDependencies.has(stackDependency.dependsOnStackId)) {
+        throw new DependencyCycleDetectedError(stackDependency.stackId, stackDependency.dependsOnStackId);
+      }
     }
 
-    const prisma = await PrismaService.get();
     return prisma.stackDependency.update({ where: { id: stackDependency.id }, data: stackDependency });
   }
 
