@@ -31,7 +31,16 @@ import { StackDependency } from '@prisma/client';
  *             schema:
  *               $ref: '#/components/schemas/StackDependencyNotFoundError'
  */
-export const GET = async (_req: NextRequest, context: NextRequestContext) => {
+export const GET = async (
+  _req: NextRequest,
+  context: NextRequestContext,
+): Promise<
+  NextResponse<
+    BodyWithStatus<{
+      stackDependency: StackDependency;
+    }>
+  >
+> => {
   try {
     const { params } = await getValidatedRequestData(
       { context },

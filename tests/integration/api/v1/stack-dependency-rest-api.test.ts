@@ -6,6 +6,7 @@ import { resetState } from '@/tests/utils/reset-state';
 import { getSampleComposeFile, SampleComposeFile } from '../../../utils/get-sample-compose-file';
 import { mockRequest } from '@/tests/utils/mock-request';
 import { getInvalidResponse, getValidResponse } from '@/tests/utils/response';
+import { Stack } from '@prisma/client';
 
 describe('Stack Dependecy Deploy REST API', () => {
   let sampleFileWithoutDeps: string = '';
@@ -143,6 +144,75 @@ describe('Stack Dependecy Deploy REST API', () => {
     expect(errors.length).toBe(1);
     expect(errors[0].code).toBe('cyclic_dependency');
     expect(errors[0].message).toBe('Cyclic dependency between dependent stack and owner stack');
+  });
+
+  it('should be able to retrieve all stack dependencies', async () => {
+    const withoutDepsList: Stack[] = [];
+    const withDepsList: Stack[] = [];
+
+    for (let i = 0; i < 5; i++) {
+      const {
+        data: { stack: stackWithoutDeps },
+      } = await getValidResponse(
+        await StackRoute.POST(
+          mockRequest({
+            method: 'POST',
+            body: {
+              name: `WithoutDeps${i}`,
+              code: sampleFileWithoutDeps,
+              cwd: '/tmp',
+              notes: 'random notes',
+            },
+          }),
+        ),
+      );
+      withoutDepsList.push(stackWithoutDeps);
+
+      const {
+        data: { stack: stackWithDeps },
+      } = await getValidResponse(
+        await StackRoute.POST(
+          mockRequest({
+            method: 'POST',
+            body: {
+              name: `WithDeps${i}`,
+              code: sampleFileWithDeps,
+              cwd: '/tmp',
+              notes: 'random notes',
+            },
+          }),
+        ),
+      );
+      withDepsList.push(stackWithDeps);
+
+      await getValidResponse(
+        await StackDependencyRoute.POST(
+          mockRequest({
+            method: 'POST',
+            body: {
+              stack_id: stackWithDeps.id,
+              dependent_stack_id: stackWithoutDeps.id,
+              notes: `random notes ${i}`,
+            },
+          }),
+        ),
+      );
+    }
+
+    const {
+      data: { stackDependencies },
+    } = await getValidResponse(await StackDependencyRoute.GET());
+
+    expect(Array.isArray(stackDependencies)).toBeTruthy();
+    expect(stackDependencies.length).toBe(5);
+
+    for (let i = 0; i < 5; i++) {
+      const stackDependency = stackDependencies[i];
+      expect(stackDependency.id).toBeDefined();
+      expect(stackDependency.stackId).toBe(withDepsList[i].id);
+      expect(stackDependency.dependsOnStackId).toBe(withoutDepsList[i].id);
+      expect(stackDependency.notes).toBe(`random notes ${i}`);
+    }
   });
 
   it('should be able to retrieve a single stack dependency', async () => {
