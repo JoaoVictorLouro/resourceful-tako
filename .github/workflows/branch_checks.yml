@@ -43,8 +43,6 @@ jobs:
           restore-keys: '${{ runner.os }}-pnpm-${{ steps.lockfile-hash-main.outputs.hash }}'
       - name: 'Install dependencies'
         run: 'pnpm install --frozen-lockfile'
-      - name: Use Docker in rootless mode for tests
-        uses: ScribeMD/rootless-docker@0.2.2
       - name: 'Test checks'
         run: 'pnpm test:check'
       - name: 'Formatter checks (pre-check and auto-fix)'
