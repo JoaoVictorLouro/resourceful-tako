@@ -55,8 +55,8 @@ importers:
         specifier: 16.0.0
         version: 16.0.0(@testing-library/dom@10.1.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/node':
-        specifier: 20.14.12
-        version: 20.14.12
+        specifier: 20.14.13
+        version: 20.14.13
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -71,10 +71,10 @@ importers:
         version: 4.18.3
       '@vitejs/plugin-react':
         specifier: 4.3.1
-        version: 4.3.1(vite@5.2.12(@types/node@20.14.12))
+        version: 4.3.1(vite@5.2.12(@types/node@20.14.13))
       '@vitest/coverage-v8':
         specifier: 2.0.4
-        version: 2.0.4(vitest@2.0.4(@types/node@20.14.12)(jsdom@24.1.1))
+        version: 2.0.4(vitest@2.0.4(@types/node@20.14.13)(jsdom@24.1.1))
       eslint:
         specifier: 9.8.0
         version: 9.8.0
@@ -113,10 +113,10 @@ importers:
         version: 7.17.0(eslint@9.8.0)(typescript@5.5.4)
       vite-tsconfig-paths:
         specifier: 4.3.2
-        version: 4.3.2(typescript@5.5.4)(vite@5.2.12(@types/node@20.14.12))
+        version: 4.3.2(typescript@5.5.4)(vite@5.2.12(@types/node@20.14.13))
       vitest:
         specifier: 2.0.4
-        version: 2.0.4(@types/node@20.14.12)(jsdom@24.1.1)
+        version: 2.0.4(@types/node@20.14.13)(jsdom@24.1.1)
 
 packages:
 
@@ -810,8 +810,8 @@ packages:
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
 
-  '@types/node@20.14.12':
-    resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
+  '@types/node@20.14.13':
+    resolution: {integrity: sha512-+bHoGiZb8UiQ0+WEtmph2IWQCjIqg8MDZMAV+ppRRhUZnquF5mQkP/9vpSwJClEiSM/C7fZZExPzfU0vJTyp8w==}
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -4283,7 +4283,7 @@ snapshots:
 
   '@types/methods@1.1.4': {}
 
-  '@types/node@20.14.12':
+  '@types/node@20.14.13':
     dependencies:
       undici-types: 5.26.5
 
@@ -4306,7 +4306,7 @@ snapshots:
     dependencies:
       '@types/cookiejar': 2.1.5
       '@types/methods': 1.1.4
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
 
   '@types/supertest@6.0.2':
     dependencies:
@@ -4454,18 +4454,18 @@ snapshots:
       '@typescript-eslint/types': 7.2.0
       eslint-visitor-keys: 3.4.3
 
-  '@vitejs/plugin-react@4.3.1(vite@5.2.12(@types/node@20.14.12))':
+  '@vitejs/plugin-react@4.3.1(vite@5.2.12(@types/node@20.14.13))':
     dependencies:
       '@babel/core': 7.24.6
       '@babel/plugin-transform-react-jsx-self': 7.24.6(@babel/core@7.24.6)
       '@babel/plugin-transform-react-jsx-source': 7.24.6(@babel/core@7.24.6)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.2.12(@types/node@20.14.12)
+      vite: 5.2.12(@types/node@20.14.13)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@2.0.4(vitest@2.0.4(@types/node@20.14.12)(jsdom@24.1.1))':
+  '@vitest/coverage-v8@2.0.4(vitest@2.0.4(@types/node@20.14.13)(jsdom@24.1.1))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -4479,7 +4479,7 @@ snapshots:
       std-env: 3.7.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.0.4(@types/node@20.14.12)(jsdom@24.1.1)
+      vitest: 2.0.4(@types/node@20.14.13)(jsdom@24.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7003,13 +7003,13 @@ snapshots:
 
   validator@13.12.0: {}
 
-  vite-node@2.0.4(@types/node@20.14.12):
+  vite-node@2.0.4(@types/node@20.14.13):
     dependencies:
       cac: 6.7.14
       debug: 4.3.5
       pathe: 1.1.2
       tinyrainbow: 1.2.0
-      vite: 5.2.12(@types/node@20.14.12)
+      vite: 5.2.12(@types/node@20.14.13)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7020,27 +7020,27 @@ snapshots:
       - supports-color
       - terser
 
-  vite-tsconfig-paths@4.3.2(typescript@5.5.4)(vite@5.2.12(@types/node@20.14.12)):
+  vite-tsconfig-paths@4.3.2(typescript@5.5.4)(vite@5.2.12(@types/node@20.14.13)):
     dependencies:
       debug: 4.3.5
       globrex: 0.1.2
       tsconfck: 3.1.1(typescript@5.5.4)
     optionalDependencies:
-      vite: 5.2.12(@types/node@20.14.12)
+      vite: 5.2.12(@types/node@20.14.13)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@5.2.12(@types/node@20.14.12):
+  vite@5.2.12(@types/node@20.14.13):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.40
       rollup: 4.18.0
     optionalDependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
       fsevents: 2.3.3
 
-  vitest@2.0.4(@types/node@20.14.12)(jsdom@24.1.1):
+  vitest@2.0.4(@types/node@20.14.13)(jsdom@24.1.1):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.4
@@ -7058,11 +7058,11 @@ snapshots:
       tinybench: 2.8.0
       tinypool: 1.0.0
       tinyrainbow: 1.2.0
-      vite: 5.2.12(@types/node@20.14.12)
-      vite-node: 2.0.4(@types/node@20.14.12)
+      vite: 5.2.12(@types/node@20.14.13)
+      vite-node: 2.0.4(@types/node@20.14.13)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 20.14.12
+      '@types/node': 20.14.13
       jsdom: 24.1.1
     transitivePeerDependencies:
       - less
