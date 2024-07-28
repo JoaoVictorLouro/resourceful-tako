@@ -36,7 +36,7 @@
     "format:fix": "prettier --write .",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:check": "vitest run --coverage",
+    "test:check": "vitest run --coverage --maxWorkers 1 --minWorkers 1",
     "postinstall": "prisma generate"
   },
   "dependencies": {
