@@ -263,6 +263,10 @@ export class StackService {
 
     console.log({ outString });
 
+    if (err) {
+      throw err;
+    }
+
     const servicesStatus: {
       ID: string;
       Name: string;
@@ -275,10 +279,6 @@ export class StackService {
       .trim()
       .split('\n')
       .map(r => JSON.parse(r.trim()));
-
-    if (err) {
-      throw err;
-    }
 
     return {
       allGreen: servicesStatus.every(s => s['State'] === 'running' && s['ExitCode'] === 0),
