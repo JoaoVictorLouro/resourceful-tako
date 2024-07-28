@@ -233,19 +233,6 @@ export class StackService {
     const stack = await this.getStackById(stackId);
     const config = await this.addMetadataToComposeString(stack.code, stack.cwd);
 
-    const isRunning = await ps({
-      configAsString: config,
-      cwd: stack.cwd || undefined,
-    });
-
-    if (!isRunning) {
-      return {
-        allGreen: false,
-        deployed: false,
-        services: {},
-      };
-    }
-
     const { out: outString, err } = await ps({
       configAsString: config,
       cwd: stack.cwd || undefined,
@@ -261,7 +248,13 @@ export class StackService {
       return r;
     });
 
-    console.log({ outString });
+    if (!outString) {
+      return {
+        allGreen: false,
+        deployed: false,
+        services: {},
+      };
+    }
 
     if (err) {
       throw err;
