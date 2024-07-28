@@ -252,6 +252,8 @@ export class StackService {
       commandOptions: ['--format', 'json'],
     });
 
+    console.log({ outString });
+
     const servicesStatus: {
       ID: string;
       Name: string;
