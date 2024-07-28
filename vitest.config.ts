@@ -10,9 +10,11 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   envDir: Path.resolve(import.meta.dirname, './tests/config'),
   test: {
+    testTimeout: 30000,
+    fileParallelism: false,
     environment: 'jsdom',
     coverage: {
-      reporter: ['json'],
+      reporter: ['json', 'html'],
     },
     env: {
       ...env,

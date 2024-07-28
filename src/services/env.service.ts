@@ -31,4 +31,8 @@ export class EnvService {
   get apiKey() {
     return this.data.API_KEY;
   }
+
+  get databaseUrl() {
+    return this.data.DATABASE_URL;
+  }
 }
