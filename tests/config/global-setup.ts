@@ -4,5 +4,5 @@ import Path from 'path';
 
 export function setup() {
   const env = DotEnv.config({ path: Path.resolve(import.meta.dirname, './tests.env') }).parsed;
-  ChildProcess.execSync('prisma migrate deploy', { env: { ...process.env, ...env } });
+  ChildProcess.execSync('pnpm prisma migrate deploy', { env: { ...process.env, ...env } });
 }

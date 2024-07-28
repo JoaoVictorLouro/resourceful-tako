@@ -81,7 +81,7 @@ export class DependencyCycleDetectedError extends ErrorTranslatableToResponse {
   readonly stackId: string;
   readonly dependentStackId: string;
   constructor(stackId: string, dependentStackId: string) {
-    super(`Dependen ${stackId} not found`);
+    super(`Stack with ID ${dependentStackId} already depends on stack with ID ${stackId}, cyclic dependency detected`);
     this.stackId = stackId;
     this.dependentStackId = dependentStackId;
   }
@@ -89,11 +89,11 @@ export class DependencyCycleDetectedError extends ErrorTranslatableToResponse {
   asResponse(): InvalidRequestErrorResponse {
     return new NextResponse(
       JSON.stringify({
-        status: 404,
-        message: `Stack with ID ${this.stackId} not found`,
-        errors: [{ code: 'not_found', message: 'Stack not found' }],
+        status: 400,
+        message: this.message,
+        errors: [{ code: 'cyclic_dependency', message: 'Cyclic dependency between dependent stack and owner stack' }],
       }),
-      { status: 404 },
+      { status: 400 },
     );
   }
 }
@@ -173,6 +173,18 @@ export class StackService {
   }
 
   async updateStackDependency(stackDependency: StackDependency) {
+    if (stackDependency.stackId === stackDependency.dependsOnStackId) {
+      throw new StackDependencyConfigurationError(
+        stackDependency.stackId,
+        `Stack cannot depend on itself: Stack ID ${stackDependency.stackId}`,
+      );
+    }
+
+    const dependentStackDependencyTree = await this.getDependencyTree(stackDependency.stackId);
+    if (dependentStackDependencyTree.allDependencies.has(stackDependency.dependsOnStackId)) {
+      throw new DependencyCycleDetectedError(stackDependency.stackId, stackDependency.dependsOnStackId);
+    }
+
     const prisma = await PrismaService.get();
     return prisma.stackDependency.update({ where: { id: stackDependency.id }, data: stackDependency });
   }
@@ -285,6 +297,15 @@ export class StackService {
   }
 
   async deployStack(stackId: string) {
+    const dependencies = await this.getDependencyTree(stackId);
+
+    for (const dependency of Array.from(dependencies.allDependencies)) {
+      const status = await this.getStackStatus(dependency);
+      if (status.deployed) {
+        await this.deployStack(dependency);
+      }
+    }
+
     const dependentsTree = await this.getDependentsTree(stackId);
     for (const dependentId of dependentsTree.dependents.map(r => r.stackId)) {
       await this.teardownStack(dependentId);
@@ -328,7 +349,7 @@ export class StackService {
       throw new StackDependencyNotFoundError(stackId);
     }
 
-    const dependencies = await Promise.all(stack.dependencies.map(dependency => this.getDependencyTree(dependency.id)));
+    const dependencies = await Promise.all(stack.dependencies.map(dependency => this.getDependencyTree(dependency.dependsOnStackId)));
 
     const allDependencies = new Set<string>();
 

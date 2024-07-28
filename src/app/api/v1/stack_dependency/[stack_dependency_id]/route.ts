@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { StackService } from '@/services/stack.service';
 import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
 import { CreateStackDependencySchema } from '@/models/stack-dependency.model';
+import { BodyWithStatus } from '@/util/api/body-with-status';
+import { StackDependency } from '@prisma/client';
 
 /**
  * @swagger
@@ -78,7 +80,16 @@ export const GET = async (_req: NextRequest, context: NextRequestContext) => {
  *       200:
  *         description: The update to the stack dependency has been applied
  */
-export const PATCH = async (req: NextRequest, context: NextRequestContext) => {
+export const PATCH = async (
+  req: NextRequest,
+  context: NextRequestContext,
+): Promise<
+  NextResponse<
+    BodyWithStatus<{
+      stackDependency: StackDependency;
+    }>
+  >
+> => {
   try {
     const { params, body } = await getValidatedRequestData(
       { req, context },
@@ -130,7 +141,7 @@ export const PATCH = async (req: NextRequest, context: NextRequestContext) => {
  *       200:
  *         description: The stack dependency has been deleted
  */
-export const DELETE = async (_req: NextRequest, context: NextRequestContext) => {
+export const DELETE = async (_req: NextRequest, context: NextRequestContext): Promise<NextResponse<BodyWithStatus<null>>> => {
   try {
     const { params } = await getValidatedRequestData(
       { context },
@@ -146,6 +157,7 @@ export const DELETE = async (_req: NextRequest, context: NextRequestContext) => 
     return NextResponse.json(
       {
         status: 200,
+        data: null,
       },
       { status: 200 },
     );
