@@ -246,10 +246,19 @@ export class StackService {
       };
     }
 
-    const { err, out: outString } = await ps({
+    const { out: outString, err } = await ps({
       configAsString: config,
       cwd: stack.cwd || undefined,
       commandOptions: ['--format', 'json'],
+    }).then(r => {
+      if (!err && !r.out) {
+        return ps({
+          configAsString: config,
+          commandOptions: ['--format', 'json'],
+        });
+      }
+
+      return r;
     });
 
     console.log({ outString });
