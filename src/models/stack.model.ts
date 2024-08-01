@@ -11,7 +11,7 @@ export const CreateStackSchema = z.object({
       code => {
         try {
           return parse(code);
-        } catch (e) {
+        } catch {
           return false;
         }
       },
