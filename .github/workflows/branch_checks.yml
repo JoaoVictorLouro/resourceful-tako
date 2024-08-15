@@ -5,8 +5,10 @@ on:
 jobs:
   run-checks:
     name: 'Run branch checks'
-    runs-on: 'ubuntu-latest'
+    runs-on: 'docker:27.1-dind'
     steps:
+      - name: 'CHeck'
+        run: 'docker ps'
       - name: 'Checkout'
         uses: 'actions/checkout@v4'
       - uses: actions/setup-node@v4
