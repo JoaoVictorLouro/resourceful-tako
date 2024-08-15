@@ -6,16 +6,14 @@ jobs:
   run-checks:
     name: 'Run branch checks'
     runs-on: 'ubuntu-latest'
-    container:
-      image: 'docker:27.1-dind'
     steps:
-      - name: 'Check'
-        run: 'docker ps'
       - name: 'Checkout'
         uses: 'actions/checkout@v4'
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: 'Set up Docker Buildx'
+        uses: docker/setup-buildx-action@v2
       - name: 'Install pnpm'
         shell: 'sh'
         run: |
