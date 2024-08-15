@@ -7,7 +7,7 @@ jobs:
     name: 'Run branch checks'
     runs-on: 'ubuntu-latest'
     container:
-      image: 'docker:27.1-dind-rootless'
+      image: 'docker:27.1-dind'
     steps:
       - name: 'Check'
         run: 'docker ps'
