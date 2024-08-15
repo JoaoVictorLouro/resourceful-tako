@@ -7,9 +7,9 @@ jobs:
     name: 'Run branch checks'
     runs-on: 'ubuntu-latest'
     container:
-      image: 'docker:27.1-dind'
+      image: 'docker:27.1-dind-rootless'
     steps:
-      - name: 'CHeck'
+      - name: 'Check'
         run: 'docker ps'
       - name: 'Checkout'
         uses: 'actions/checkout@v4'
@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 22
       - name: 'Install pnpm'
-        shell: 'bash'
+        shell: 'sh'
         run: |
           npm install -g $(node -e "console.log(require('./package.json').packageManager)")
       - name: 'Get pnpm cache directory path'
