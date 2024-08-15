@@ -1,0 +1,15 @@
+when creating a stack:
+  validate volumes exist
+  validate images exist
+  validate cwd exist
+  validate dockerfile exists
+  validate .env file exists
+  validate networks exist
+  validate container names do not clash with existing stacks
+  validate stack name does not clash with existing stacks
+  validate networks do not clash with existing stacks
+
+when linking stack dependencies:
+  validate for circular dependencies
+
+when deploying a stack:

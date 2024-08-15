@@ -12,8 +12,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: 'Set up Docker Buildx'
+        uses: docker/setup-buildx-action@v2
+      - name: 'Install Docker Compose'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
       - name: 'Install pnpm'
-        shell: 'bash'
+        shell: 'sh'
         run: |
           npm install -g $(node -e "console.log(require('./package.json').packageManager)")
       - name: 'Get pnpm cache directory path'
