@@ -1,6 +1,6 @@
-| Project Links | Description |
-|---------------|-------------|
-| [Website](https://joaovictor.com/en/projects/resourceful-tako-deployer) | Official project page |
+| Project Links                                                                                                | Description                                    |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| [Website](https://joaovictor.com/en/projects/resourceful-tako-deployer)                                      | Official project page                          |
 | [Project Tracker](https://tracker.joaovictor.com/share/9mgs9sVYD3HK7NW9KCD3fOIL0epvgwaYcomYmD2z/auth?view=5) | Requests and work to be done progress tracking |
 
 ---
