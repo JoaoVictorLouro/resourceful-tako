@@ -115,7 +115,7 @@ export class StackService {
 
   async getAllStackDependencies() {
     const prisma = await PrismaService.get();
-    return prisma.stackDependency.findMany();
+    return prisma.stackDependency.findMany({ orderBy: { createdAt: 'asc' } });
   }
 
   async createStack(data: CreateStackData) {
@@ -307,7 +307,7 @@ export class StackService {
 
     for (const dependency of Array.from(dependencies.allDependencies)) {
       const status = await this.getStackStatus(dependency);
-      if (status.deployed) {
+      if (!status.deployed) {
         await this.deployStack(dependency);
       }
     }
