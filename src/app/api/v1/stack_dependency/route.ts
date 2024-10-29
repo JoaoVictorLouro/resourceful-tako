@@ -2,7 +2,8 @@ import { getValidatedRequestData } from '@/util/api/get-validated-request-data';
 import { NextRequest, NextResponse } from 'next/server';
 import { StackService } from '@/services/stack.service';
 import { ErrorTranslatableToResponse } from '@/util/api/error-translatable-as-response';
-import { CreateStackDependencySchema } from '@/models/stack-dependency.model';
+import { CreateStackDependencySchema, StackDependency } from '@/models/stack-dependency.model';
+import { BodyWithStatus } from '@/util/api/body-with-status';
 
 /**
  * @swagger
@@ -72,7 +73,13 @@ export const POST = async (req: NextRequest) => {
  *       200:
  *         description: A List of all registered stack dependencies
  */
-export const GET = async () => {
+export const GET = async (): Promise<
+  NextResponse<
+    BodyWithStatus<{
+      stackDependencies: StackDependency[];
+    }>
+  >
+> => {
   try {
     const stackDependencies = await StackService.get.getAllStackDependencies();
 
