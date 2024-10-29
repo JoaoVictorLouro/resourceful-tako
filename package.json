@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@prisma/client": "5.21.1",
-    "docker-compose": "0.24.8",
+    "docker-compose": "1.1.0",
     "dotenv": "16.4.5",
     "next": "14.2.16",
     "next-swagger-doc": "0.4.0",
