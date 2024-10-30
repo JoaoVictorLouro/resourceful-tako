@@ -21,8 +21,8 @@ importers:
         specifier: 14.2.16
         version: 14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-swagger-doc:
-        specifier: 0.4.0
-        version: 0.4.0(next@14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(openapi-types@12.1.3)
+        specifier: 0.4.1
+        version: 0.4.1(next@14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(openapi-types@12.1.3)
       next-validations:
         specifier: 1.0.2
         version: 1.0.2(@types/json-schema@7.0.15)(next@14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -823,8 +823,8 @@ packages:
   '@types/supertest@6.0.2':
     resolution: {integrity: sha512-137ypx2lk/wTQbW6An6safu9hXmajAifU/s7szAHLN/FeIm5w7yR0Wkl9fdJMRSHwOn4HLAI0DaB2TOORuhPDg==}
 
-  '@types/swagger-jsdoc@6.0.1':
-    resolution: {integrity: sha512-+MUpcbyxD528dECUBCEVm6abNuORdbuGjbrUdHDeAQ+rkPuo2a+L4N02WJHF3bonSSE6SJ3dUJwF2V6+cHnf0w==}
+  '@types/swagger-jsdoc@6.0.4':
+    resolution: {integrity: sha512-W+Xw5epcOZrF/AooUM/PccNMSAFOKWZA5dasNyMujTwsBkU74njSJBpvCCJhHAJ95XRMzQrrW844Btu0uoetwQ==}
 
   '@types/swagger-ui-react@4.18.3':
     resolution: {integrity: sha512-Mo/R7IjDVwtiFPs84pWvh5pI9iyNGBjmfielxqbOh2Jv+8WVSDVe8Nu25kb5BOuV2xmGS3o33jr6nwDJMBcX+Q==}
@@ -2315,9 +2315,9 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next-swagger-doc@0.4.0:
-    resolution: {integrity: sha512-5Wt19Av4tOHVdXPJ7xTVvDJuiWuP5OYnY13BSq5SIjMtktFfhX4/9yZyaMCXImbUECu26PALn9CpRQRplIXJ3w==}
-    engines: {node: '>=12'}
+  next-swagger-doc@0.4.1:
+    resolution: {integrity: sha512-pFmFUOwNlJh7mr9P6b2obAHa9JAwgPK3oNTIzE9g/Gs+h2OG1T3C5SanzrqGA3dDncagyf/DbO5U+ZzNxKadWg==}
+    engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
       next: '>=9'
@@ -4289,7 +4289,7 @@ snapshots:
       '@types/methods': 1.1.4
       '@types/superagent': 8.1.7
 
-  '@types/swagger-jsdoc@6.0.1': {}
+  '@types/swagger-jsdoc@6.0.4': {}
 
   '@types/swagger-ui-react@4.18.3':
     dependencies:
@@ -5952,9 +5952,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-swagger-doc@0.4.0(next@14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(openapi-types@12.1.3):
+  next-swagger-doc@0.4.1(next@14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(openapi-types@12.1.3):
     dependencies:
-      '@types/swagger-jsdoc': 6.0.1
+      '@types/swagger-jsdoc': 6.0.4
       cleye: 1.3.2
       isarray: 2.0.5
       next: 14.2.16(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
